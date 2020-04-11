@@ -13,7 +13,7 @@ var opts *Options
 func init() {
 	// Read Flags
 	port := flag.Int("port", DefaultParams.ProxyPort, "Reverse proxy port. (Required)")
-	prefix := flag.String("prefix", DefaultParams.ProxyPrefix, "route prefix (ex: localhost:3000/prefix/")
+	prefix := flag.String("prefix", DefaultParams.ProxyPrefix, "route prefix (ex: http://localhost:3000/prefix/")
 	flag.Parse()
 
 	// Read RemoteURL
