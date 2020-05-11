@@ -5,7 +5,6 @@ import (
 	"net"
 	"net/http"
 	"net/http/httputil"
-	"net/url"
 	"strings"
 )
 
@@ -46,7 +45,8 @@ func (p *Options) getRoutePattern() string {
 }
 
 func (ph *ProxyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	r.URL, _ = url.Parse(strings.TrimPrefix(r.URL.Path, ph.options.ProxyPrefix))
+	r.URL.Path = strings.TrimPrefix(r.URL.Path, ph.options.ProxyPrefix)
+	r.RequestURI = strings.TrimPrefix(r.RequestURI, ph.options.ProxyPrefix)
 	Colorer.Printf("[%6s] %s\n", Colorer.Green(r.Method), Colorer.Blue(fmt.Sprintf("%s%s", ph.options.RemoteURL, r.RequestURI)))
 	ph.proxy.ServeHTTP(w, r)
 }
